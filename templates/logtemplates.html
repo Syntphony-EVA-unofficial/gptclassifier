@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .accordion {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .accordion-header {
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px 5px 0 0;
+            font-size: 0.85em;
+        }
+        .accordion-content {
+            display: none;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+        .log-entry {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            border-left: 3px solid #007BFF;
+        }
+        .log-entry .log-time {
+            color: #555;
+            font-size: 0.8em;
+            margin-bottom: 5px;
+        }
+        .log-entry .log-level {
+            font-weight: bold;
+            color: #007BFF;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+        .log-entry .log-message {
+            white-space: pre-wrap; /* CSS3 */
+            white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+            white-space: -pre-wrap; /* Opera 4-6 */
+            white-space: -o-pre-wrap; /* Opera 7 */
+            word-wrap: break-word; /* Internet Explorer 5.5+ */
+            font-size: 0.85em;
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Logs</h1>
+    {% for tracking_code, log_entries in grouped_logs.items() %}
+    <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(event)">
+            {{ tracking_code }}
+        </div>
+        <div class="accordion-content">
+            {% for log in log_entries %}
+            <div class="log-entry">
+                <div class="log-time">{{ log.time }}</div>
+                <div class="log-level">{{ log.level }}</div>
+                <div class="log-message">{{ log.message | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <script>
+        function toggleAccordion(event) {
+            var header = event.currentTarget;
+            var content = header.nextElementSibling;
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+
+        // Initialize accordion state to collapsed
+        document.addEventListener("DOMContentLoaded", function() {
+            var accordions = document.querySelectorAll('.accordion-content');
+            accordions.forEach(function(content) {
+                content.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
