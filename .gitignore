@@ -1,0 +1,42 @@
+
+local instructions.md
+Dockerfile to deploy
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Flask instance folder
+instance/
+
+# Virtual environment
+venv/
+.env
+
+# PyCharm project settings
+.idea/
+
+# VS Code settings
+.vscode/
+
+# macOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+
+# Linux specific
+.*~
+
+# Python distributions
+/dist/
+/build/
+*.egg-info/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# pytest, coverage, and flake8 artifacts
+.coverage
+.pytest_cache/
+.flake8
